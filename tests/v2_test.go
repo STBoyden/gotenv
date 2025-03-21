@@ -1,16 +1,18 @@
-package gotenv
+package tests
 
 import (
 	"embed"
 	"os"
 	"testing"
+
+	"github.com/STBoyden/gotenv/v2"
 )
 
 //go:embed .env
 var envFile embed.FS
 
-func TestLoadEnv(t *testing.T) {
-	_, err := LoadEnv(LoadOptions{OverrideExistingVars: false})
+func TestLoadEnvV2(t *testing.T) {
+	_, err := gotenv.LoadEnv(gotenv.LoadOptions{OverrideExistingVars: false})
 	if err != nil {
 		t.Fatalf("an error occurred when loading environment variables: %s", err.Error())
 	}
@@ -27,8 +29,8 @@ func TestLoadEnv(t *testing.T) {
 	}
 }
 
-func TestLoadEnvFromFS(t *testing.T) {
-	_, err := LoadEnvFromFS(envFile, LoadOptions{OverrideExistingVars: false})
+func TestLoadEnvFromFSV2(t *testing.T) {
+	_, err := gotenv.LoadEnvFromFS(envFile, gotenv.LoadOptions{OverrideExistingVars: false})
 	if err != nil {
 		t.Fatalf("an error occurred when loading environment variables: %s", err.Error())
 	}
@@ -45,10 +47,10 @@ func TestLoadEnvFromFS(t *testing.T) {
 	}
 }
 
-func TestLoadEnvFromReader(t *testing.T) {
+func TestLoadEnvFromReaderV2(t *testing.T) {
 	file, _ := os.Open("exampleenv")
 
-	_, err := LoadEnvFromReader(file, LoadEnvFromReaderOptions{OverrideExistingVars: false})
+	_, err := gotenv.LoadEnvFromReader(file, gotenv.LoadEnvFromReaderOptions{OverrideExistingVars: false})
 	if err != nil {
 		t.Fatalf("an error occurred when loading environment variables: %s", err.Error())
 	}

@@ -1,6 +1,6 @@
 # Gotenv?
 
-Gotenv is a very simple Go package to load environment variables from a `.env` format file. Documentation for the package can be found [here](https://pkg.go.dev/github.com/STBoyden/gotenv).
+Gotenv is a very simple Go package to load environment variables from a `.env` format file. Documentation for the package can be found [here](https://pkg.go.dev/github.com/STBoyden/gotenv/v2).
 
 The library has two main features:
 
@@ -10,5 +10,5 @@ The library has two main features:
 To install, simply do the following:
 
 ```bash
-go get github.com/STBoyden/gotenv@latest
+go get github.com/STBoyden/gotenv/v2
 ```
