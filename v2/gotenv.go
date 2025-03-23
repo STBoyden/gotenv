@@ -124,7 +124,9 @@ func parseEnvFile(reader io.Reader, overrideExistingVars bool) (map[string]strin
 	scanner := bufio.NewScanner(reader)
 	for scanner.Scan() {
 		line := scanner.Text()
-		if line == "" {
+
+		// if line is empty or starts with a # then skip the line
+		if line == "" || strings.HasPrefix(line, "#") {
 			continue
 		}
 
@@ -136,10 +138,9 @@ func parseEnvFile(reader io.Reader, overrideExistingVars bool) (map[string]strin
 		key := line[:firstEqualsIndex]
 		value := line[firstEqualsIndex+1:]
 
-		// we want to trim potential leading and tailing double
-		// quotes, as we assume those are just used to denote a string environment
-		// variable that contains characters that could potentially break parsing in
-		// other environments.
+		// we want to trim potential leading and tailing double quotes, as we assume
+		// those are just used to denote a string environment variable that contains
+		// characters that could potentially break parsing in other environments.
 
 		value = strings.TrimPrefix(value, "\"")
 
