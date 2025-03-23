@@ -136,6 +136,19 @@ func parseEnvFile(reader io.Reader, overrideExistingVars bool) (map[string]strin
 		key := line[:firstEqualsIndex]
 		value := line[firstEqualsIndex+1:]
 
+		// we want to trim potential leading and tailing double
+		// quotes, as we assume those are just used to denote a string environment
+		// variable that contains characters that could potentially break parsing in
+		// other environments.
+
+		value = strings.TrimPrefix(value, "\"")
+
+		// if string ends with \" then we want to keep that as that could be there
+		// for a reason.
+		if !strings.HasSuffix(value, "\\\"") {
+			value = strings.TrimSuffix(value, "\"")
+		}
+
 		envMap[key] = value
 	}
 
